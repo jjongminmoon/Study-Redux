@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>처음 만난 리덕스 - 신호등</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  </head>
+  <body>
+    <div style="display: flex; gap: 16px">
+      <div id="red-light" style="width: 56px; height: 56px; border-radius: 100%"></div>
+      <div id="yellow-light" style="width: 56px; height: 56px; border-radius: 100%"></div>
+      <div id="green-light" style="width: 56px; height: 56px; border-radius: 100%"></div>
+    </div>
+
+    <div style="margin-top: 16px">
+      <button id="turn-on-red-button">빨간불 켜기</button>
+      <button id="turn-on-yellow-button">노란불 켜기</button>
+      <button id="turn-on-green-button">초록불 켜기</button>
+    </div>
+
+    <script>
+      // Action Types
+      let ACTION_TYPE_TURN_ON_RED = "TURN_ON_RED";
+      let ACTION_TYPE_TURN_ON_YELLOW = "TURN_ON_YELLOW";
+      let ACTION_TYPE_TURN_ON_GREEN = "TURN_ON_GREEN";
+
+      // ACtion Creators
+      function turnOnRedActionCreator(text) {
+        return {
+          type: ACTION_TYPE_TURN_ON_RED
+        };
+      }
+      function turnOnYellowActionCreator(text) {
+        return {
+          type: ACTION_TYPE_TURN_ON_YELLOW
+        };
+      }
+      function turnOnGreenActionCreator(text) {
+        return {
+          type: ACTION_TYPE_TURN_ON_GREEN
+        };
+      }
+
+      let initialState = {
+        red: false,
+        yellow: false,
+        green: false
+      };
+
+      // Reducer
+      function lightsReducer(state = initialState, action) {
+        switch (action.type) {
+          case ACTION_TYPE_TURN_ON_RED:
+            return {
+              ...initialState,
+              red: true
+            };
+          case ACTION_TYPE_TURN_ON_YELLOW:
+            return {
+              ...initialState,
+              yellow: true
+            };
+          case ACTION_TYPE_TURN_ON_GREEN:
+            return {
+              ...initialState,
+              green: true
+            };
+          default:
+            return state;
+        }
+      }
+
+      // Create Redux Store
+      let store = Redux.createStore(lightsReducer);
+
+      let redLightElem = document.getElementById("red-light");
+      let yellowLightElem = document.getElementById("yellow-light");
+      let greenLightElem = document.getElementById("green-light");
+
+      // UI update function
+      function render() {
+        if (store.getState().red) {
+          redLightElem.style.backgroundColor = "red";
+        } else {
+          redLightElem.style.backgroundColor = "gray";
+        }
+
+        if (store.getState().yellow) {
+          yellowLightElem.style.backgroundColor = "yellow";
+        } else {
+          yellowLightElem.style.backgroundColor = "gray";
+        }
+
+        if (store.getState().green) {
+          greenLightElem.style.backgroundColor = "green";
+        } else {
+          greenLightElem.style.backgroundColor = "gray";
+        }
+      }
+
+      // Initial Rendering
+      render();
+
+      // UI update subscribe Redux Store
+      store.subscribe(render);
+
+      // UI event listeners for dispatching Redux Action
+      document.getElementById("turn-on-red-button").addEventListener("click", function () {
+        store.dispatch(turnOnRedActionCreator());
+      });
+      document.getElementById("turn-on-yellow-button").addEventListener("click", function () {
+        store.dispatch(turnOnYellowActionCreator());
+      });
+      document.getElementById("turn-on-green-button").addEventListener("click", function () {
+        store.dispatch(turnOnGreenActionCreator());
+      });
+    </script>
+  </body>
+</html>
