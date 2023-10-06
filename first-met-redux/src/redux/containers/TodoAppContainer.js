@@ -10,24 +10,33 @@ import {
   removeTodo as removeTodoActionCreator,
   removeAll as removeAllActionCreator
 } from "../actions/todoAction";
+import { fetchTodosRequested as fetchTodosRequestedActionCreator } from "../actions/fetchTodosAction";
+import addTodoThunkActionCreator from "../thunks/addTodoThunk";
 import TodoApp from "../../components/TodoApp";
 
 function mapStateToProps(state, ownProps) {
   return {
-    todoItems: state.todo
+    todoItems: [...state.todo, ...state.fetchTodos.data]
   };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     addTodo: (text) => {
-      dispatch(addTodoActionCreator(text));
+      // dispatch(addTodoActionCreator(text));
+      dispatch(addTodoThunkActionCreator(text));
     },
     removeTodo: () => {
       dispatch(removeTodoActionCreator());
     },
     removeAll: () => {
       dispatch(removeAllActionCreator());
+    },
+    triggerAsyncFunction: (asyncFunction) => {
+      dispatch(asyncFunction);
+    },
+    fetchTodo: () => {
+      dispatch(fetchTodosRequestedActionCreator());
     }
   };
 }
