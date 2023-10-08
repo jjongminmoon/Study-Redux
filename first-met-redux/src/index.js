@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "./redux/store";
 import TodoAppContainer from "./redux/containers/TodoAppContainer";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <TodoAppContainer />
+      <PersistGate loading={null} persistor={persistor}>
+        <TodoAppContainer />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

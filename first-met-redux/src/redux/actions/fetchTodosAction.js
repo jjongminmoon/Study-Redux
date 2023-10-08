@@ -3,7 +3,8 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = {
   pending: false,
   data: [],
-  error: null
+  error: null,
+  extraData: null
 };
 
 export const { fetchTodosRequested, fetchTodosSucceeded, fetchTodosFailed } = createActions({
