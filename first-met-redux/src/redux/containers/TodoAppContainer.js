@@ -16,7 +16,7 @@ import {
   removeAll as removeAllActionCreator
 } from "../slices/todoSlice";
 import { fetchTodosRequested as fetchTodosRequestedActionCreator } from "../actions/fetchTodosAction";
-import addTodoThunkActionCreator from "../thunks/addTodoThunk";
+// import addTodoThunkActionCreator from "../thunks/addTodoThunk";
 import TodoApp from "../../components/TodoApp";
 
 function mapStateToProps(state, ownProps) {

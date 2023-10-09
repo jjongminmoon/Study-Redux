@@ -1,9 +1,9 @@
 // import { createStore, applyMiddleware, compose } from "redux";
 // import asyncFunctionMiddleware from "./middlewares/asyncFunctionMiddleware";
 // import storage from "redux-persist/lib/storage";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
-import thunkMiddleware from "redux-thunk";
+// import thunkMiddleware from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import {
